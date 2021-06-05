@@ -1,0 +1,15 @@
+Tela de cadastro
+- tela que o usuário se cadastra no sistema.
+
+Tela de login
+- depois que o usuário estiver cadastrado ele poderá fazer o login no sistema.
+
+Tela de aluguel de filmes
+- contém todos os filmes diponíveis para o usuário alugar.
+
+Tela filmes alugados do usuário
+- contém apenas os filmes alugados pelo usuário
+
+Tela de planos da quantidade de filmes alugados do usuário
+- contém a opção do usuário aumentar a quantidade de filmes que ele pode alugar
+ 
