@@ -1,0 +1,21 @@
+{
+  "name": "TrabalhoPW4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "i18n": "^0.13.3",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2"
+  }
+}
