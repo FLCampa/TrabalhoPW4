@@ -3,7 +3,7 @@ const { saveCustomer, loginCustomer } = require("../controller/CustomerControlle
 
 module.exports = (server) => {
     server.get('/', (req, res) => {
-        saveCustomer(server);
+        saveCustomer(server, req, res);
     })
 
     server.get('/login/:email', (req, res) => {
