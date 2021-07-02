@@ -1,13 +1,13 @@
 import React, { Component } from "react"
-import Movie from "../movie/Movie";
-
+//<Movie brand="Felipe"/>
+import axios from 'axios';
 class Home extends Component {
 
 
     render(){
         return (
             <div className="Home">
-                <Movie/>
+                "Pedro"
             </div>
         );
     }

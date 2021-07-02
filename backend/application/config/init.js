@@ -2,6 +2,7 @@ const express = require('express');
 const consign = require('consign');
 const server = express();
 const i18n = require('i18n');
+const cors = require('cors');
 
 i18n.configure({
     defaultLocale: 'pt',
@@ -11,6 +12,12 @@ i18n.configure({
     cookie: 'trabalhopw4'
 });
 
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+server.use(cors(corsOptions));
 server.use(i18n.init);
 
 server.use(express.urlencoded({extended: true}));

@@ -13,6 +13,7 @@ module.exports.saveCustomer = async (server, req, res) => {
 
 module.exports.loginCustomer = async (server, req, res) => {
     let email = req.params.email;
+    console.log(email);
     let connection = server.application.config.dbConnection();
     let customerDAO = new server.application.DAO.CustomerDAO(connection);
 
