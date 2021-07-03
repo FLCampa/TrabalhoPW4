@@ -1,21 +1,21 @@
 import React, { Component } from "react"
-import api from '../services/api'
+import './movie.css'
+
 
 class Movie extends Component {
-    state = {
-        person: []
-    }
-    componentDidMount() {
-        api.get('/movies')
-        .then(movie => console.log(movie))
-        .catch(error => console.error(error))
-    }
-
 
     render(){
         return (
             <div className="Movie">
-                {this.state.person}
+                <div class="form-style">
+                    <h2>{this.props.titulo}</h2>
+                    <img src={this.props.imagem} alt=""/><br/><br/>
+                    Lançamento: {this.props.lancamento}<br/>
+                    Diretor: {this.props.diretor}<br/>
+                    Escritor: {this.props.escritor}<br/>
+                    Genero: {this.props.genero}<br/>
+                    <input type="submit"/>
+                </div>
             </div>
         );
     }

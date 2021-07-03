@@ -1,21 +1,30 @@
 const request = require('request');
 const key = '86f0335e';
+const fetch = require("node-fetch");
 const fs = require('fs');
 const { saveMovie } = require ('./../controller/MovieController')
 
 module.exports.home = async(server, req, res) => {
     let file = await readFile();
-    let teste =[]
-    file.forEach((element) => {
-        let id = (element.split(','));
-        teste.push(getMoviesFromAPI(id));
-    });
+    let movies = [];
+    let qnt = file.length;
+    for(i = 0; i < qnt; i++){
+        let id = file[i]
+        console.log(id);
+        const api_url = `http://www.omdbapi.com/?i=${id}&apikey=${key}`;
+        const fetch_resposse = await fetch(api_url);
+        const json = await fetch_resposse.json();
+        movies.push(json);
+    }
+    //console.log(movies);
     //teste.forEach(x => console.log(x));
-    //res.status(200).json(teste);
+    console.log(movies);
+    res.status(200).json(movies);
 }
 
 
 function readFile(){
+    let codigos = [] 
     return new Promise((resolve, reject) => {
         fs.readFile("movies.txt", function(error, data) { 
             if(error) {
@@ -23,7 +32,11 @@ function readFile(){
             }
             let fileWithoutR = data.toString().split('\r');
             let fileWithoutLineBreak = fileWithoutR.toString().split('\n');
-            resolve(fileWithoutLineBreak);
+            fileWithoutLineBreak.forEach(element => {
+                let id = (element.split(','));
+                codigos.push(id[0])
+            })
+            resolve(codigos);
         })
     })
 }
@@ -40,21 +53,21 @@ function readFile(){
 //     })
 // }
 
-function getMoviesFromAPI(id){
-    var teste = new Promise(
-        function(resolve, reject){
-            request(`http://www.omdbapi.com/?i=${id[0]}&apikey=${key}`, (error, sucess, data) => {
-                if(error){
-                    reject(error);
-                }
-                resolve(JSON.parse(data));
-            })
-        }
-    )
-    let movie = teste.then(x)
-    return movie;
+// function getMoviesFromAPI(id){
+//     var teste = new Promise(
+//         function(resolve, reject){
+//             request(`http://www.omdbapi.com/?i=${id[0]}&apikey=${key}`, (error, sucess, data) => {
+//                 if(error){
+//                     reject(error);
+//                 }
+//                 resolve(JSON.parse(data));
+//             })
+//         }
+//     )
+//     let movie = teste.then(x)
+//     return movie;
 
-}
+// }
 
 async function saveMovieOnBD(server, id){
     let movie = await getMoviesFromAPI(id);

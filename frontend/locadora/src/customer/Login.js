@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Home from "../home/Home";
 import './login.css'
 import api from "../services/api";
 import { Redirect } from 'react-router-dom';

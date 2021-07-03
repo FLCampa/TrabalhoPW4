@@ -11,6 +11,7 @@ module.exports = (server) => {
     })
 
     server.get('/movies', (req, res) => {
+        console.log('entrou')
         home(server, req, res);
     })
 }
