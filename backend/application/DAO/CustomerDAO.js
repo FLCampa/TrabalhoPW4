@@ -18,6 +18,13 @@ CustomerDAO.prototype.updateCustomer = function(customer, callback) {
     this._connection.query(sql, data, callback);
 }
 
+CustomerDAO.prototype.addMovieToCustomer = function(idMovie, callback){
+    console.log(idMovie);
+    let sql = 'UPDATE customers set idMovie = ? WHERE email = ?';
+    let data = [idMovie, 'pedroabdo2000@gmail.com'];
+    this._connection.query(sql, data, callback);
+}
+
 module.exports = () => {
     return CustomerDAO;
 }

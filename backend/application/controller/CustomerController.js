@@ -51,6 +51,19 @@ module.exports.updateCustomer = (server, req, res) => {
     connection.end();
 };
 
+module.exports.addMovieToCustomer = (server, req, res) => {
+    let idMovie = req.params.idMovie;
+    let connection = server.application.config.dbConnection();
+    let customerDAO = new server.application.DAO.CustomerDAO(connection);
+    addMovieToCustomer(idMovie, customerDAO).then(response => {
+        res.status(200).json('Sucesso');
+    })
+    .catch(error => {
+        res.status(400).json('Erro');
+    })
+
+}
+
 function getOneCustomer(customerDAO, email, password){
     return new Promise((resolve, reject) => {
         customerDAO.getOneCustomer(email, password, (error, sucess) => {
@@ -76,6 +89,18 @@ function updateCustomer(customer, customerDAO){
         customerDAO.updateCustomer(customer, (error, sucess) => {
             if (error) 
                 reject(error);
+            resolve(sucess);
+        })
+    })
+}
+
+function addMovieToCustomer(idMovie, customerDAO){
+    return new Promise((resolve, reject) => {
+        customerDAO.addMovieToCustomer(idMovie, (error, sucess) => {
+            if (error) {
+                reject(error);
+                console.log(error);
+            }
             resolve(sucess);
         })
     })

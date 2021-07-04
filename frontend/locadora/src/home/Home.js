@@ -17,11 +17,15 @@ class Home extends Component{
       componentDidMount() {
         this.getDataFromApi()
     }
+
+    
+    
     render(){
         return (
             <div className="Home">
                 {this.state.lista.map((movie) => {
                     return <Movie 
+                            id={movie.imdbID}
                             titulo={movie.Title}
                             imagem={movie.Poster}
                             lancamento={movie.Released}
