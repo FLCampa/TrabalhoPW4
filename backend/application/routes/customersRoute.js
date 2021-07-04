@@ -2,7 +2,7 @@ const { home } = require("../api");
 const { saveCustomer, loginCustomer } = require("../controller/CustomerController")
 
 module.exports = (server) => {
-    server.get('/', (req, res) => {
+    server.post('/saveCustomer', (req, res) => {
         saveCustomer(server, req, res);
     })
 

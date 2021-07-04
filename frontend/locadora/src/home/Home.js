@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import React, { Component } from "react"
 import Movie from "../movie/Movie";
 import api from '../services/api';
@@ -10,15 +9,6 @@ class Home extends Component{
             lista: []
         }
     }
-    // const [movieData, setMovieData] = useState({});
-
-    // useEffect(() => {
-    //     fetch('http://localhost:80/movies')
-    //     .then((res) => res.json())
-    //     .then(setMovieData)
-    //   }, []);
-
-      
       getDataFromApi = async () => {
         api.get('/movies')
         .then((res) => this.setState({lista: res.data}))
@@ -27,8 +17,6 @@ class Home extends Component{
       componentDidMount() {
         this.getDataFromApi()
     }
-    //   console.log(movieData);
-    
     render(){
         return (
             <div className="Home">

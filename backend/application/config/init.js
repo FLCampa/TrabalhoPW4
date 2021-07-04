@@ -21,6 +21,7 @@ server.use(cors(corsOptions));
 server.use(i18n.init);
 
 server.use(express.urlencoded({extended: true}));
+server.use(express.json());
 
 consign()
     .include('application/routes')

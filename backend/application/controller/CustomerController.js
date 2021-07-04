@@ -1,13 +1,20 @@
 module.exports.saveCustomer = async (server, req, res) => {
+    //console.log('entrou aqui');
     let connection = server.application.config.dbConnection();
     let customerDAO = new server.application.DAO.CustomerDAO(connection);
     let customer = req.body;
 
-    saveCustomer(customer, customerDAO).then(sucess => 
-        res.status(200).json(sucess)
-    ).catch(error => {
-        res.status(400).json(error)
+    customerDAO.saveCustomer(customer, customerDAO, (err, results, fields) => {       
+        console.log(results);
+        console.log(fields);
+        res.status(200).json(results)
     })
+
+    // customerDAO.saveCustomer(customer, customerDAO).then(sucess => 
+    //     res.status(200).json(sucess)
+    // ).catch(error => {
+    //     res.status(430).json(error)
+    // })
     connection.end();
 };
 
