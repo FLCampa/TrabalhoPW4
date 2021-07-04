@@ -30,7 +30,6 @@ class RegisterCustomer extends Component {
             headers:{
                 'Content-Type': 'application/json'
             }
-            
         })
         .then(()=> {
             console.log('sucess')
@@ -61,7 +60,7 @@ class RegisterCustomer extends Component {
         return(
             <div class="form-style">
                 <form method="POST" onSubmit={this.handleSubmit}>
-                    <h2>Login</h2>
+                    <h2>Cadastro</h2>
                     <label for="Email">Email: </label><br/>
                     <input type="text" id="email" name="email" value={this.state.value} onChange={ this.handleTextChange }/><br/>
                     <label for="customer_password">Senha: </label><br/>
@@ -70,7 +69,7 @@ class RegisterCustomer extends Component {
                     <input type="text" id="customer_name" name="customer_name" onChange={ this.handleTextChange }/><br/>
                     <label for="cellphone">Telefone: </label><br/>
                     <input type="text" id="cellphone" name="cellphone" onChange={ this.handleTextChange }/><br/>
-                    <input type="submit" value="Adicionar"></input>
+                    <input type="submit" value="Cadastrar"></input>
                 </form>
             </div>
         )

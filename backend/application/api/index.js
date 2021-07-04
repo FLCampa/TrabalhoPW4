@@ -10,15 +10,11 @@ module.exports.home = async(server, req, res) => {
     let qnt = file.length;
     for(i = 0; i < qnt; i++){
         let id = file[i]
-        console.log(id);
         const api_url = `http://www.omdbapi.com/?i=${id}&apikey=${key}`;
         const fetch_resposse = await fetch(api_url);
         const json = await fetch_resposse.json();
         movies.push(json);
     }
-    //console.log(movies);
-    //teste.forEach(x => console.log(x));
-    console.log(movies);
     res.status(200).json(movies);
 }
 

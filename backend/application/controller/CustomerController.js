@@ -1,31 +1,35 @@
 module.exports.saveCustomer = async (server, req, res) => {
-    //console.log('entrou aqui');
     let connection = server.application.config.dbConnection();
     let customerDAO = new server.application.DAO.CustomerDAO(connection);
     let customer = req.body;
 
-    customerDAO.saveCustomer(customer, customerDAO, (err, results, fields) => {       
-        console.log(results);
-        console.log(fields);
-        res.status(200).json(results)
+    saveCustomer(customer, customerDAO).then(sucess => 
+        res.status(200).json(sucess)
+    ).catch(error => {
+        res.status(430).json(error)
     })
-
-    // customerDAO.saveCustomer(customer, customerDAO).then(sucess => 
-    //     res.status(200).json(sucess)
-    // ).catch(error => {
-    //     res.status(430).json(error)
-    // })
     connection.end();
 };
 
 module.exports.loginCustomer = async (server, req, res) => {
     let email = req.params.email;
-    console.log(email);
+    let password = req.params.password;
     let connection = server.application.config.dbConnection();
     let customerDAO = new server.application.DAO.CustomerDAO(connection);
+    let flagStatus = 200;
+    let message;
 
-    getOneCustomer(customerDAO, email).then(customer => 
-        res.status(200).json(customer)
+    getOneCustomer(customerDAO, email, password).then(customer => {
+        if (customer.length === 0){
+            flagStatus = 400;
+            message = {
+                message:'Cliente não existe'
+            }
+        } else {
+            message = customer;
+        }
+        res.status(flagStatus).json(message)
+    }
     ).catch(error => {
         res.status(400).json(error)
     })
@@ -47,9 +51,9 @@ module.exports.updateCustomer = (server, req, res) => {
     connection.end();
 };
 
-function getOneCustomer(customerDAO, email){
+function getOneCustomer(customerDAO, email, password){
     return new Promise((resolve, reject) => {
-        customerDAO.getOneCustomer(email, (error, sucess) => {
+        customerDAO.getOneCustomer(email, password, (error, sucess) => {
             if (error) 
                 reject(error);
             resolve(sucess);

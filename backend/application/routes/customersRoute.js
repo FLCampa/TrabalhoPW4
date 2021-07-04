@@ -6,7 +6,7 @@ module.exports = (server) => {
         saveCustomer(server, req, res);
     })
 
-    server.post('/login/:email', (req, res) => {
+    server.post('/login/:email/:password', (req, res) => {
         loginCustomer(server, req, res);
     })
 

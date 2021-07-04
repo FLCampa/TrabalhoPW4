@@ -7,43 +7,56 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            redirect: false
+            email: '',
+            password: ''
         };
     
-        this.handleChange = this.handleChange.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-      handleChange(event) {
-        this.setState({value: event.target.value});
-      }
+
+      handleTextChange(event) {
+        switch (event.target.name) {
+            case "email":
+                this.setState({email: event.target.value});
+                break;  
+            case "password":
+                this.setState({password: event.target.value});
+                break;
+            default:
+                break;
+        }
+    }
     
       handleSubmit(event) {
-        let email = this.state.value;
-        api.post('/login/' + email).then(() =>{
-            this.setState({ redirect: true });
-            console.log('teste');
-            //this.redirect();
+        event.preventDefault();
+        let payload = {
+            email:this.state.email,
+            password:this.state.password
+        }
+        api.post(`/login/${this.state.email}/${this.state.password}`, payload, {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
+        .then( res => {
+            console.log(res)
+        }).catch( res => {
+            console.error(res)
         })
       }
 
-      redirect(){
-          if(this.state.redirect)
-            return <Redirect to="/home"/>
-      }
     render(){
         return(
             <div class="form-style">
                 <form method="POST" onSubmit={this.handleSubmit}>
                     <h2>Login</h2>
                     <label for="Email">Email: </label><br/>
-                    <input type="text" id="email" name="email" value={this.state.value} onChange={this.handleChange}/><br/>
+                    <input type="text" id="email" name="email" value={this.state.value} onChange={ this.handleTextChange }/><br/>
                     <label for="password">Senha: </label><br/>
-                    <input type="password" id="password" name="password"/><br/>
-                    <input type="submit" value="Adicionar"></input>
+                    <input type="password" id="password" name="password" onChange={ this.handleTextChange }/><br/>
+                    <input type="submit" value="Login"></input>
                 </form>
-
-                <input type="button" value={this.redirect}></input>
             </div>
         )
     }
